@@ -49,7 +49,7 @@ def gke_describe(name):
 name = target.clusterName or target.name
 print "Cluster name is {0}".format(name)
 data = gke_describe(name=name)
-print data
+    print data
 deployed.gke_host_address = data['endpoint']
 deployed.gke_url = "tcp://{0}".format(data['endpoint'])
 if deployed.clusterName is None:
