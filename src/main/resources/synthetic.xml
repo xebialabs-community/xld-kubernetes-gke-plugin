@@ -11,10 +11,8 @@
 
     <type type="gke.ProvisionedCluster" extends="udm.BaseProvisioned" container-type="overthere.Host"
           deployable-type="gke.ProvisionedClusterSpec">
-        <generate-deployable type="gke.ClusterSpec" extends="udm.BaseProvisionable"/>
+        <generate-deployable type="gke.ProvisionedClusterSpec" extends="udm.BaseProvisionable"/>
         <property name="project"/>
-        <property name="username"/>
-        <property name="password" password="true"/>
         <property name="zone" description="eg europe-west1-b"/>
         <property name="additionalZones" required="false" description="eg europe-west1-b"/>
         <property name="numNode" label="Number of Nodes" kind="integer" default="3"/>

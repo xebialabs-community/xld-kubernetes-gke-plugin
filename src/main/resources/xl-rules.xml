@@ -16,7 +16,7 @@
         <steps>
             <os-script>
                 <order>60</order>
-                <description expression="true">"Create '%s' GKE cluster using %s" % (deployed.name)
+                <description expression="true">"Create the '%s' GKE cluster " % (deployed.name)
                 </description>
                 <script>gke/create-cluster</script>
             </os-script>
@@ -42,34 +42,21 @@
                     <target expression="true">deployed</target>
                 </jython-context>
             </jython>
-            <jython>
-                <description expression="true">"Load Certificates for the '%s' Docker machine on '%s' " %
-                    (deployed.name,deployed.container.name)
-                </description>
-                <script>docker-machine/load_cert.py</script>
-                <order>61</order>
-                <jython-context>
-                    <target expression="true">deployed</target>
-                </jython-context>
-            </jython>
         </steps>
     </rule>
 
-    <rule name="docker.machine.instance.destroy" scope="deployed">
+    <rule name="gke.cluster.instance.destroy" scope="deployed">
         <conditions>
             <type>gke.ProvisionedCluster</type>
             <operation>DESTROY</operation>
         </conditions>
         <steps>
-            <jython>
+            <os-script>
                 <description expression="true">"Destroy the '%s' GKE cluster" % previousDeployed.clusterName
                 </description>
                 <order>40</order>
                 <script>gke/destroy-cluster</script>
-                <jython-context>
-                    <machine_name expression="true">previousDeployed.machineName</machine_name>
-                </jython-context>
-            </jython>
+            </os-script>
         </steps>
     </rule>
 </rules>

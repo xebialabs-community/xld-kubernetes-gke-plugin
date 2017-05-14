@@ -6,14 +6,14 @@
 
 -->
 echo "Creating GKE cluster '${deployed.name}' "
-<#assign cmdLine = ["gcloud","container","clusters","create",${(deployed.clusterName)!(deployed.name)}]
+<#assign cmdLine = ["gcloud","container","clusters","create",(deployed.clusterName)!(deployed.name)]/>
 
-<#assign cmdLine = cmdLine + ["--num-nodes",${deployed.numNode}/>
-<#assign cmdLine = cmdLine + ["--zone",${deployed.zone}/>
+<#assign cmdLine = cmdLine + ["--num-nodes",deployed.numNode]/>
+<#assign cmdLine = cmdLine + ["--zone",deployed.zone]/>
 
 <#if (deployed.additionalZones??)>
-<#assign cmdLine = cmdLine + ["--additional-zones", ${deployed.additionalZones?join(", ")}]
-</if>
+<#assign cmdLine = cmdLine + ["--additional-zones", deployed.additionalZones?join(", ")]/>
+</#if>
 
 echo Executing <#list cmdLine as item>${item} </#list>
 <#list cmdLine as item>${item} </#list>
