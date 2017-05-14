@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd"
+           xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <type type="gke.Cluster" extends="udm.BaseProvisioned" container-type="overthere.Host" deployable-type="gke.MachineSpec">
+        <generate-deployable type="gke.ClusterSpec" extends="udm.BaseProvisionable"/>
+        <property name="project" />
+        <property name="username" />
+        <property name="password" password="true" />
+        <property name="zone" description="eg europe-west1-b" />
+        <property name="numNode" kind="integer" default="3" />
+        <property name="clusterName" required="false"/>
+
+        <property name="insecureRegistries" kind="list_of_string" required="false"
+                  description="insecure registries to allow with the created engine"/>
+        <property name="engineOptions" kind="set_of_string" required="false" category="Engine"
+                  description="Arbitrary flags to include with the created engine in the form flag=value"/>
+        <property name="engineLabels" kind="set_of_string" required="false" category="Engine"
+                  description="Specify labels for the created engine key=value"/>
+        <property name="gke_host" label="gke Host" category="Output" required="false"/>
+        <property name="gke_host_address" label="gke Host Adress" category="Output" required="false"/>
+        <property name="gke_cert_path" label="gke Certificate Path" category="Output" required="false"/>
+        <property name="gke_tls_verify" label="gke TLS Verify" category="Output" required="false"/>
+        <property name="gke_certPem" label="Certificate" category="Output" required="false"/>
+        <property name="gke_keyPem" label="Key" category="Output" required="false"/>
+        <property name="gke_caPem" label="CA" category="Output" required="false"/>
+    </type>
+
+
+
+</synthetic>

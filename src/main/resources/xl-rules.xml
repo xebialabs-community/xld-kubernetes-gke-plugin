@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+
+<rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
+    <rule name="docker.machine.instance.create" scope="deployed">
+        <conditions>
+            <type>docker.Machine</type>
+            <operation>CREATE</operation>
+        </conditions>
+        <steps>
+            <os-script>
+                <order>60</order>
+                <description expression="true">"Create '%s' docker machine using %s" % (deployed.name,
+                    deployed.container.name)
+                </description>
+                <script>docker-machine/create</script>
+            </os-script>
+            <checkpoint/>
+        </steps>
+    </rule>
+
+    <rule name="docker.machine.instance.fetch.info" scope="deployed">
+        <conditions>
+            <type>docker.Machine</type>
+            <operation>CREATE</operation>
+            <operation>MODIFY</operation>
+            <operation>NOOP</operation>
+        </conditions>
+        <steps>
+            <jython>
+                <description expression="true">"Fetch information about the '%s' Docker machine on '%s' " %
+                    (deployed.name,deployed.container.name)
+                </description>
+                <script>docker-machine/fetch_info.py</script>
+                <order>61</order>
+                <jython-context>
+                    <target expression="true">deployed</target>
+                </jython-context>
+            </jython>
+            <jython>
+                <description expression="true">"Load Certificates for the '%s' Docker machine on '%s' " %
+                    (deployed.name,deployed.container.name)
+                </description>
+                <script>docker-machine/load_cert.py</script>
+                <order>61</order>
+                <jython-context>
+                    <target expression="true">deployed</target>
+                </jython-context>
+            </jython>
+        </steps>
+    </rule>
+
+    <rule name="docker.machine.instance.destroy" scope="deployed">
+        <conditions>
+            <type>docker.Machine</type>
+            <operation>DESTROY</operation>
+        </conditions>
+        <steps>
+            <jython>
+                <description expression="true">"Destroy the '%s' Docker machine" % previousDeployed.machineName
+                </description>
+                <order>40</order>
+                <script>docker-machine/destroy.py</script>
+                <jython-context>
+                    <machine_name expression="true">previousDeployed.machineName</machine_name>
+                </jython-context>
+            </jython>
+        </steps>
+    </rule>
+</rules>
