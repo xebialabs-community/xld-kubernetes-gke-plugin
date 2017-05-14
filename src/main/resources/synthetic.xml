@@ -12,14 +12,14 @@
     <type type="gke.ProvisionedCluster" extends="udm.BaseProvisioned" container-type="overthere.Host"
           deployable-type="gke.ProvisionedClusterSpec">
         <generate-deployable type="gke.ProvisionedClusterSpec" extends="udm.BaseProvisionable"/>
-        <property name="project"/>
-        <property name="zone" description="eg europe-west1-b"/>
-        <property name="additionalZones" required="false" description="eg europe-west1-b"/>
-        <property name="numNode" label="Number of Nodes" kind="integer" default="3"/>
-        <property name="clusterName" required="false"/>
+        <property name="project" category="Cluster"/>
+        <property name="zone" category="Cluster" description="eg europe-west1-b"/>
+        <property name="additionalZones" required="false" description="eg europe-west1-b" category="Cluster"/>
+        <property name="numNode" label="Number of Nodes" kind="integer" default="3" category="Cluster"/>
+        <property name="clusterName" required="false" category="Cluster"/>
 
-        <property name="gke_host_address" label="gke Host Adress" category="Output" required="false"/>
-        <property name="gke_url" label="gke Certificate Path" category="Output" required="false"/>
+        <property name="gke_host_address" label="Kubernetes Host Adress" category="Output" required="false"/>
+        <property name="gke_url" label="Kubernetes URL" category="Output" required="false"/>
     </type>
 
     <type type="gke.Cluster" extends="kubernetes.Cluster">

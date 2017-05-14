@@ -4,24 +4,15 @@
 # FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
 #
 
-import traceback
 import json
-from com.xebialabs.overthere import OperatingSystemFamily
-from overtherepy import LocalConnectionOptions, OverthereHost, OverthereHostSession
+import traceback
+from overtherepy import OverthereHostSession
 
 
-def machine_name(ci):
-    if ci.machineName is not None:
-        return ci.machineName
-    else:
-        return ci.name
-
-
-def gke_describe(name):
+def gke_describe(name, target):
     command_line = "gcloud container clusters describe {0} --format=json".format(name)
     print command_line
-    local_opts = LocalConnectionOptions(os=OperatingSystemFamily.UNIX)
-    host = OverthereHost(local_opts)
+    host = target.container
     session = OverthereHostSession(host)
 
     print "Executing '{0}'....".format(command_line)
@@ -39,9 +30,12 @@ def gke_describe(name):
 
 name = target.clusterName or target.name
 print "Cluster name is {0}".format(name)
-data = gke_describe(name=name)
-print data
+data = gke_describe(name=name, target=target)
+# print data
 deployed.gke_host_address = data['endpoint']
+print "gke_host_address {0}".format(deployed.gke_host_address)
 deployed.gke_url = "tcp://{0}".format(data['endpoint'])
+print "gke_url {0}".format(deployed.gke_url)
 if deployed.clusterName is None:
     deployed.clusterName = deployed.name
+print "clusterName {0}".format(deployed.clusterName)
