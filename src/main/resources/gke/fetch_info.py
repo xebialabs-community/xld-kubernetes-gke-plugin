@@ -4,12 +4,10 @@
 # FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
 #
 
-from overtherepy import LocalConnectionOptions, OverthereHost, OverthereHostSession
-from com.xebialabs.overthere import OperatingSystemFamily
 import re
-import sys
 import traceback
-
+from com.xebialabs.overthere import OperatingSystemFamily
+from overtherepy import LocalConnectionOptions, OverthereHost, OverthereHostSession
 
 
 def to_map(stdout):
@@ -28,9 +26,8 @@ def machine_name(ci):
         return ci.name
 
 
-def docker_machine_env(machine_name):
-    print "Env docker '{0}' machine ".format(machine_name)
-    command_line = "docker-machine env {0}".format(machine_name)
+def gke_describe(name):
+    command_line = "gcloud container clusters describe {0} --format=json".format(name)
 
     local_opts = LocalConnectionOptions(os=OperatingSystemFamily.UNIX)
     host = OverthereHost(local_opts)
@@ -40,7 +37,7 @@ def docker_machine_env(machine_name):
     try:
 
         response = session.execute(command_line)
-        return to_map(response.stdout)
+        return  json.loads(" ".join(response.stdout))
     except:
         tb = traceback.format_exc()
         print "Error"
@@ -49,26 +46,13 @@ def docker_machine_env(machine_name):
         session.close_conn()
 
 
-machine_name = machine_name(target)
-print "Machine name is {0}".format(machine_name)
-data = docker_machine_env(machine_name=machine_name)
-ip = re.findall(r'[0-9]+(?:\.[0-9]+){3}', data['DOCKER_HOST'])
-if len(ip) == 1:
-    data['address'] = ip[0]
-print "IP Address is %s " % data['address']
-print "--------------------"
+name = target.clusterName or target.name
+print "Cluster name is {0}".format(name)
+data = gke_describe(name=name)
 print data
-print "--------------------"
-
-deployed.docker_host_address = data['address']
-deployed.docker_host = data['DOCKER_HOST']
-deployed.docker_cert_path = data['DOCKER_CERT_PATH']
-if data['DOCKER_TLS_VERIFY'] == '1':
-    deployed.docker_tls_verify = True
-else:
-    deployed.docker_tls_verify = False
-
-if deployed.machineName is None:
-    deployed.machineName = deployed.name
+deployed.gke_host_address = data['endpoint']
+deployed.gke_url = "tcp://{0}".format(data['endpoint'])
+if deployed.clusterName is None:
+    deployed.clusterName = deployed.name
 
 

@@ -8,36 +8,35 @@
 -->
 
 <rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
-    <rule name="docker.machine.instance.create" scope="deployed">
+    <rule name="gke.cluster.instance.create" scope="deployed">
         <conditions>
-            <type>docker.Machine</type>
+            <type>gke.ProvisionedCluster</type>
             <operation>CREATE</operation>
         </conditions>
         <steps>
             <os-script>
                 <order>60</order>
-                <description expression="true">"Create '%s' docker machine using %s" % (deployed.name,
-                    deployed.container.name)
+                <description expression="true">"Create '%s' GKE cluster using %s" % (deployed.name)
                 </description>
-                <script>docker-machine/create</script>
+                <script>gke/create-cluster</script>
             </os-script>
             <checkpoint/>
         </steps>
     </rule>
 
-    <rule name="docker.machine.instance.fetch.info" scope="deployed">
+    <rule name="gke.cluster.instance.fetch.info" scope="deployed">
         <conditions>
-            <type>docker.Machine</type>
+            <type>gke.ProvisionedCluster</type>
             <operation>CREATE</operation>
             <operation>MODIFY</operation>
             <operation>NOOP</operation>
         </conditions>
         <steps>
             <jython>
-                <description expression="true">"Fetch information about the '%s' Docker machine on '%s' " %
+                <description expression="true">"Fetch information about the '%s' GKE Cluster on '%s' " %
                     (deployed.name,deployed.container.name)
                 </description>
-                <script>docker-machine/fetch_info.py</script>
+                <script>gke/fetch_info.py</script>
                 <order>61</order>
                 <jython-context>
                     <target expression="true">deployed</target>
@@ -58,15 +57,15 @@
 
     <rule name="docker.machine.instance.destroy" scope="deployed">
         <conditions>
-            <type>docker.Machine</type>
+            <type>gke.ProvisionedCluster</type>
             <operation>DESTROY</operation>
         </conditions>
         <steps>
             <jython>
-                <description expression="true">"Destroy the '%s' Docker machine" % previousDeployed.machineName
+                <description expression="true">"Destroy the '%s' GKE cluster" % previousDeployed.clusterName
                 </description>
                 <order>40</order>
-                <script>docker-machine/destroy.py</script>
+                <script>gke/destroy-cluster</script>
                 <jython-context>
                     <machine_name expression="true">previousDeployed.machineName</machine_name>
                 </jython-context>
