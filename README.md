@@ -1,8 +1,12 @@
 # xld-kubernetes-gke-plugin
 
+<img src="https://www.gcppodcast.com/images/post/gke.png" width="200" height="200"/>
+
 # Overview #
 
 This plugin is a XL Deploy plugin that adds capability for provisioning a new Google Container Engine (GKE) for Docker Containers and deploying containers on top of it.
+
+
 
 # CI status #
 
@@ -30,5 +34,6 @@ Place the plugin XLDP file into your `SERVER_HOME/plugins` directory.
 ![Deploy GuestBook Application](images/deploy-gke-guestbook.png)
 
 
-![Logo](https://www.gcppodcast.com/images/post/gke.png)
+
+
 
