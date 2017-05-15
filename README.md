@@ -29,3 +29,6 @@ Place the plugin XLDP file into your `SERVER_HOME/plugins` directory.
 ## Deploy the GuestBook Application on a GKE cluster
 ![Deploy GuestBook Application](images/deploy-gke-guestbook.png)
 
+
+![Logo](https://www.gcppodcast.com/images/post/gke.png)
+
