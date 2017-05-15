@@ -9,4 +9,6 @@
 <#assign target = (deployed.container)!(previousDeployed.container)/>
 gcloud container clusters get-credentials ${target.clusterName}   --zone ${target.zone}  --project ${target.project}
 
-export KUBERNETES_MASTER=${(target.url)!(target.url)}
+export KUBERNETES_MASTER=${target.url}
+
+
