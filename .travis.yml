@@ -3,7 +3,7 @@ deploy:
   provider: releases
   api_key:
     secure: WWWyC7/MlbA644QyETj0PDyfcs9fFlgWZG4lBr1Q6wfKotfDhgoie9XloThiNSkOyhSEPOcbdiHUsmadIcMB1D0KG1/C1HqP8Z9daTityPSC2n5DeM/19GuqkXrK13SpAeNplBONhGMKkXjAFXFJIlaWfRGRVUF2f+M9be9IkWY0OeXocdJcCGee4EBD3xHQUmaHGBmtSxpIm3x9xetiDmEIDRU3KjRDc4EMqkRv8U+L4nUU0aKNeg6EUz6pP5LrNjGqBSJYwYGplKsecgn1Utor92ZLUfItEMRe0c6yO/oQqhkgMfEgfGaO3ZgVYvg+HLsN2t5E9bn3DNZ9Nh7XO0D+ppc07A8ARi7D4AK5wM6xM/H3GlKGc5U4iLHyv/paOG5oxi2TldU6cOUR5CGBuWvMO4fM8C710/T7snVJHZom9bv8a6lj53VQXE7WwCFD08ezRvrgtqIETim8/FwzzpgCWCjjy7LBzWFpQxsMtJcABAdp2WC5McWwc5RYa4UfFQQELKnbFzYEiMNz0nX7h1B9PeJcbyqVmz7Pz6w1fbItWY1IWOtCLHwbazqPVIikSgPU5t+2IAZu0zJpvafEu/23mwdFXdeS0gK34oDa4Eu9r9Wes6giNNKdZZHW4btez2ejKGOP7mXHw6ZfOWhTRRJ+4u/gqLsXD8BlI5VFr4E=
-  file: build/distributions/xld-kubernetes-gke-plugin-6.0.0.xldp
+  file: build/distributions//xld-kubernetes-gke-plugin-6.2.1.xldp
   on:
     repo: xebialabs-community/xld-kubernetes-gke-plugin
     all_branches: true
