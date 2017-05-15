@@ -21,9 +21,11 @@ Place the plugin XLDP file into your `SERVER_HOME/plugins` directory.
 * XL Deploy Kubernetes plugin 6.2.+
 
 
-# Provision a new GKE cluster
+# Screenshots
+
+## Provision a new GKE cluster
 ![Provision a new GKE cluster](images/provision-gke-cluster-2.png)
 
-# Deploy GuestBook Application
+## Deploy the GuestBook Application on a GKE cluster
 ![Deploy GuestBook Application](images/deploy-gke-guestbook.png)
 
